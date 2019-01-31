@@ -1,7 +1,7 @@
 {
   "main.css": "/hooq/static/css/main.a27e10aa.chunk.css",
-  "main.js": "/hooq/static/js/main.a8d21fb6.chunk.js",
-  "main.js.map": "/hooq/static/js/main.a8d21fb6.chunk.js.map",
+  "main.js": "/hooq/static/js/main.e12fc94b.chunk.js",
+  "main.js.map": "/hooq/static/js/main.e12fc94b.chunk.js.map",
   "static/js/1.dc9a1ab2.chunk.js": "/hooq/static/js/1.dc9a1ab2.chunk.js",
   "static/js/1.dc9a1ab2.chunk.js.map": "/hooq/static/js/1.dc9a1ab2.chunk.js.map",
   "runtime~main.js": "/hooq/static/js/runtime~main.404d6c47.js",
@@ -9,6 +9,6 @@
   "static/media/Big_buck_bunny_poster_big.jpg": "/hooq/static/media/Big_buck_bunny_poster_big.aaad0560.jpg",
   "static/css/main.a27e10aa.chunk.css.map": "/hooq/static/css/main.a27e10aa.chunk.css.map",
   "index.html": "/hooq/index.html",
-  "precache-manifest.e3fbe083ff3ba007c0cbe2a3049abe15.js": "/hooq/precache-manifest.e3fbe083ff3ba007c0cbe2a3049abe15.js",
+  "precache-manifest.556daefca1ce8187f6779fbce39acf58.js": "/hooq/precache-manifest.556daefca1ce8187f6779fbce39acf58.js",
   "service-worker.js": "/hooq/service-worker.js"
 }
