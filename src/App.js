@@ -10,12 +10,12 @@ class App extends Component {
       <Router basename={process.env.PUBLIC_URL}>
       <div className="App">
       <Route
-        path={process.env.PUBLIC_URL + '/'}
+        path={'/'}
         render={props => <Home {...props}/>}
         exact
       />
       <Route
-        path={process.env.PUBLIC_URL + '/player/:id'}
+        path={'/player/:id'}
         render={props => <Player {...props}/>}
       />
       </div>
