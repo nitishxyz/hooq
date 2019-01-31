@@ -42,9 +42,7 @@ class Player extends Component {
         this._isMounted = true;
         const { match: { params } } = this.props;
     //   console.log(params.id);
-      if(params.id === "bunny") {
           this.setState({vidSrc});
-      }
     }
 
     componentWillUnmount() {
