@@ -11,8 +11,12 @@ body {
     margin: 0;
     display: flex;
     background-color: #222;
+    overflow-x: hidden;
   }
   div {
     display: flex;
     box-sizing: border-box;
+}
+a {
+  text-decoration: none;
 }
