@@ -6,12 +6,13 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends Component {
   render() {
+    console.log(process.env.PUBLIC_URL);
     return (
       <Router basename={process.env.PUBLIC_URL}>
       <div className="App">
       <Route
         path={'/'}
-        render={props => <Home {...props}/>}
+        render={props => <Player {...props}/>}
         exact
       />
       <Route

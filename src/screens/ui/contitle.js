@@ -13,14 +13,15 @@ class ConTitle extends Component {
 
     componentDidMount() {
         // console.log(this.props.nav.location)
+        //  onClick={() => {this.props.nav.history.push("player/bunny")}}
     }
 
   render() {
     return (
-        <a href="/player/bunny">
+        <a href="/hooq/player/bunny">
         <div className="titleCon">
-      <img src={bigbuck} className="titlePic" />
-      </div>
+        <img src={bigbuck} className="titlePic" />
+        </div>
         </a>
     );
   }
