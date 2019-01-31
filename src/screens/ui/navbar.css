@@ -1,0 +1,22 @@
+.navbar {
+    display: flex;
+    background-color: #282c34;
+    background-color: #111;
+    padding: 10px;
+    width: 100vw;
+    font-size: 49px;
+    font-weight: bold;
+    justify-content: center;
+    /* -webkit-box-shadow: 0px 3px 21px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 3px 21px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 3px 21px 1px rgba(0,0,0,0.75); */
+}
+
+.title {
+
+    background: linear-gradient(to right, blue 0%, rgb(222, 0, 165) 100%);
+    font-size: 39px;
+  /* background: -webkit-linear-gradient(#eee, #333); */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

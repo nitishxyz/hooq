@@ -1,0 +1,12 @@
+.home {
+    flex-direction: column;
+}
+.conTitles {
+    display: inline-block;
+    width: 100vw;
+}
+.conTitle {
+    display: inline-block;
+    padding:9px;
+    background-color: transparent;
+}
