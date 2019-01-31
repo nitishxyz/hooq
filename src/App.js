@@ -10,12 +10,12 @@ class App extends Component {
       <Router>
         <div className="App">
       <Route
-        path="/"
+        path="/hooq/"
         render={props => <Home {...props}/>}
         exact
       />
       <Route
-        path="/player/:id"
+        path="/hooq/player/:id"
         render={props => <Player {...props}/>}
       />
       </div>
