@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/hooq/static/css/main.be8dffd9.chunk.css"
   },
   {
-    "revision": "02520ba052afa6d0e1e6656f5940c107",
+    "revision": "f73d557de987fb9f936d77c1cd4b04fa",
     "url": "/hooq/index.html"
   }
 ];
