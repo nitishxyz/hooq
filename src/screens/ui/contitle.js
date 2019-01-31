@@ -17,7 +17,7 @@ class ConTitle extends Component {
 
   render() {
     return (
-        <a href="/hooq/player/bunny">
+        <a href="/player/bunny">
         <div className="titleCon">
       <img src={bigbuck} className="titlePic" />
       </div>
