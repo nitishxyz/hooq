@@ -8,19 +8,19 @@ self.__precacheManifest = [
     "url": "/hooq/static/js/runtime~main.404d6c47.js"
   },
   {
-    "revision": "762aee5af949669daba4",
-    "url": "/hooq/static/js/main.762aee5a.chunk.js"
+    "revision": "5c1f377fe70b8b5d7d49",
+    "url": "/hooq/static/js/main.5c1f377f.chunk.js"
   },
   {
     "revision": "dc9a1ab25abd12f1d651",
     "url": "/hooq/static/js/1.dc9a1ab2.chunk.js"
   },
   {
-    "revision": "762aee5af949669daba4",
+    "revision": "5c1f377fe70b8b5d7d49",
     "url": "/hooq/static/css/main.be8dffd9.chunk.css"
   },
   {
-    "revision": "1a06e103eeabcdf465be87a11bad141a",
+    "revision": "02520ba052afa6d0e1e6656f5940c107",
     "url": "/hooq/index.html"
   }
 ];
