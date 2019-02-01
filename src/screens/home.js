@@ -3,8 +3,6 @@ import './home.css';
 import Navbar from './ui/navbar';
 import ConTitle from './ui/contitle';
 
-import {Link} from 'react-router-dom';
-
 class Home extends Component {
     constructor(props) {
         super(props);

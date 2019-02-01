@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './contitle.css';
 import bigbuck from '../../assets/Big_buck_bunny_poster_big.jpg';
-import {Link} from 'react-router-dom';
 
 class ConTitle extends Component {
     constructor(props) {
@@ -18,11 +17,9 @@ class ConTitle extends Component {
 
   render() {
     return (
-        <a href="/hooq/player/bunny">
-        <div className="titleCon">
-        <img src={bigbuck} className="titlePic" />
+        <div className="titleCon" onClick={() => {this.props.nav.history.push("player/bunny")}}>
+        <img src={bigbuck} className="titlePic" alt={bigbuck}/>
         </div>
-        </a>
     );
   }
 }

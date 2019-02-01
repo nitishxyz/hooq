@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './player.css';
+import createPlayer from './scripts/createPlayer';
+
 let vidSrc = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
-let playerCons = require('./scripts/playerCons');
+
 let seekDrag = false;
 let moving= true;
 
@@ -16,54 +18,64 @@ class Player extends Component {
             progress: 0,
             cursor: "pointer",
             fullscreen: false,
-            buffering: false,
+            buffering: "init",
             volConWid: 0,
             volWid: 100,
             buffers: "",
             loaded: false,
-            vidSrc: ""
+            vidSrc: "",
         };
         this._isMounted = false;
+        this.playerInit = null;
     }
 
     componentDidMount() {
-        playerCons.createPlayer(this.player, this.playerCon);
-        let that = this;
-        document.addEventListener("fullscreenchange", function (event) {
-            if (document.fullscreenElement) {
-                // fullscreen is activated
-                that.setState({fullscreen: true});
-            } else {
-                // fullscreen is cancelled
-                that.setState({fullscreen: false});
-            }
-            });
-        document.addEventListener("keydown", (key) => playerCons.handleKeys(key), false);
+        if(!this.playerInit) {
+            this.playerInit = new createPlayer(this.player, this.playerCon);
+        }
+        document.addEventListener("fullscreenchange", this._isfullscreen);
+        document.addEventListener("keydown", (key) => this.playerInit.handleKeys(key));
         this._isMounted = true;
         const { match: { params } } = this.props;
-    //   console.log(params.id);
+         console.log(params.id);
           this.setState({vidSrc});
+    }
+
+    _isfullscreen = (event) => {
+            if (document.fullscreenElement) {
+                // fullscreen is activated
+                this.setState({fullscreen: true});
+            } else {
+                // fullscreen is cancelled
+                this.setState({fullscreen: false});
+            }
     }
 
     componentWillUnmount() {
         this._isMounted = false;
+        this.player = null;
+        this.playerInit.destroyPlayer();
+        document.removeEventListener("fullscreenchange", this._isfullscreen);
+        document.removeEventListener("keydown", (key) => this.playerInit.handleKeys(key));
     }
 
     _onTimeUpdate = () => {
-        let onTimeUpdate = playerCons.onTimeUpdate();
+        let onTimeUpdate = this.playerInit.onTimeUpdate();
         let currentTime = onTimeUpdate.currentTime;
         let progress = onTimeUpdate.progress;
-        this._isMounted && this.setState({currentTime, progress});
+        if(!isNaN(progress)) {
+            this._isMounted && this.setState({currentTime, progress});
+        }
         this._onBuffer();
     }
     _onLoad = () => {
-        let duration = playerCons.convertTime(this.player.duration * 1000);
+        let duration = this.playerInit.convertTime(this.player.duration * 1000);
         let volWid = this.player.volume * 100;
         this._isMounted && this.setState({duration, volWid, loaded: true});
     }
 
     _onPlay = () => {
-        let duration = playerCons.convertTime(this.player.duration * 1000);
+        let duration = this.playerInit.convertTime(this.player.duration * 1000);
         this._isMounted && this.setState({playing: true, duration, buffering: false});
     }
 
@@ -75,10 +87,10 @@ class Player extends Component {
 
         let currentTime = (duration * prog) / 100;
 
-        currentTime = playerCons.convertTime(currentTime * 1000);
+        currentTime = this.playerInit.convertTime(currentTime * 1000);
         this._isMounted && this.setState({currentTime});
         
-        playerCons.seek(prog);
+        this.playerInit.seek(prog);
 
 
     }
@@ -102,10 +114,11 @@ class Player extends Component {
 
         let currentTime = (duration * percentage) / 100;
 
-        currentTime = playerCons.convertTime(currentTime * 1000);
-
-        this._isMounted && this.setState({progress: percentage, currentTime});
-        playerCons.seek(percentage);
+        currentTime = this.playerInit.convertTime(currentTime * 1000);
+        if(!isNaN(percentage)) {
+            this._isMounted && this.setState({progress: percentage, currentTime});
+        }
+        this.playerInit.seek(percentage);
     }
 
     _onWaiting = () => {
@@ -207,7 +220,7 @@ class Player extends Component {
         if (percentage < 0) {
             percentage = 0;
         }
-        playerCons.seekVol(percentage);
+        this.playerInit.seekVol(percentage);
         this._isMounted && this.setState({volWid: percentage})
     }
 
@@ -256,7 +269,7 @@ class Player extends Component {
           this.playerCon = ref;
       }}
       onMouseMove={this._showCursor}
-      onDoubleClick={() => playerCons.goFullscreen()}
+      onDoubleClick={() => this.playerInit.goFullscreen()}
       style={{cursor: this.state.cursor}}
       align={"center"}
       >
@@ -284,7 +297,8 @@ class Player extends Component {
             </div>
             ) : null}
         </div>
-		<div className='controlsCon' ref={ref => {
+        {this.state.buffering != "init" ? (
+            <div className='controlsCon' ref={ref => {
             this.controlsCon = ref;
         }}>
 			{/* <!-- topControle --> */}
@@ -306,11 +320,11 @@ class Player extends Component {
             {!this.state.buffering ? (
                 <div className="playConIn">
                     {!this.state.playing ? (
-                        <button className="control" style={{width: '100%'}} onClick={playerCons.play} type="button">
+                        <button className="control" style={{width: '100%'}} onClick={() => this.playerInit.play()} type="button">
                         <i className="conIcon fas fa-play"></i>
                     </button>
                     ) : (
-                        <button className="control" style={{width: '100%'}} onClick={playerCons.pause} type="button">
+                        <button className="control" style={{width: '100%'}} onClick={() => this.playerInit.pause()} type="button">
                         <i className="conIcon fas fa-pause"></i>
                     </button>
                     )}
@@ -346,8 +360,9 @@ class Player extends Component {
 						<div id="sliderIn" style={{width: this.state.progress + "%"}} className="sliderIn"></div>
                         <div className="sliderInpCon">
                         <input ref={ref => {
-                            this.volBar = ref
-                            }} type="range" 
+                            this.mainSlider = ref
+                            }} 
+                            type="range" 
                             min="0" 
                             max="100"
                             step="0.1"
@@ -410,11 +425,11 @@ class Player extends Component {
                 </button>
 
                 {this.state.fullscreen ? (
-                    <button className="otherControl" onClick={() => playerCons.goFullscreen()}>
+                    <button className="otherControl" onClick={() => this.playerInit.goFullscreen()}>
                     <i className="onIcon fas fa-compress"></i>
                 </button>
                 ) : (
-                    <button className="otherControl" onClick={() => playerCons.goFullscreen()}>
+                    <button className="otherControl" onClick={() => this.playerInit.goFullscreen()}>
                         <i className="onIcon fas fa-expand"></i>
                     </button>
                 )}
@@ -423,6 +438,8 @@ class Player extends Component {
 			</div>
 			{/* <!-- bottomControls --> */}
 		</div>
+        ) : null}
+		
       </div>
     );
   }
